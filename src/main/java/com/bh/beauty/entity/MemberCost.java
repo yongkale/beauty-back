@@ -15,15 +15,22 @@ public class MemberCost {
 	@GeneratedValue 
 	private int id ;
     private int memberId;
+    private int costMoney;
     private String name ;
     private String phoneNumber;
     private Timestamp payDate;
     private String  memberType ;
-    private int memberNumber;
-    private String remarks ;
+	private String remarks ;
     private String repsoenPerson; 
     private String leaderPerson ;
     private String assginPerson ;
+    
+    public int getCostMoney() {
+		return costMoney;
+	}
+	public void setCostMoney(int costMoney) {
+		this.costMoney = costMoney;
+	}
 	public int getId() {
 		return id;
 	}
@@ -59,12 +66,6 @@ public class MemberCost {
 	}
 	public void setMemberType(String memberType) {
 		this.memberType = memberType;
-	}
-	public int getMemberNumber() {
-		return memberNumber;
-	}
-	public void setMemberNumber(int memberNumber) {
-		this.memberNumber = memberNumber;
 	}
 	public String getRemarks() {
 		return remarks;

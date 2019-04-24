@@ -32,7 +32,6 @@ public class MemberRechage {
     private int memberMeony;
     private Timestamp payDate;
     private String memberType ;
-    private int memberNumber;
     private String remarks;
     private String repsoenPerson ;
 	public int getId() {
@@ -73,12 +72,6 @@ public class MemberRechage {
 	}
 	public void setMemberType(String memberType) {
 		this.memberType = memberType;
-	}
-	public int getMemberNumber() {
-		return memberNumber;
-	}
-	public void setMemberNumber(int memberNumber) {
-		this.memberNumber = memberNumber;
 	}
 	public String getRemarks() {
 		return remarks;

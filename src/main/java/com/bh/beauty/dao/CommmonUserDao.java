@@ -13,7 +13,7 @@ import com.bh.beauty.entity.MemberRechage;
 
 public interface CommmonUserDao  extends JpaRepository<CommonUser, Long>, JpaSpecificationExecutor<CommonUser>,Serializable {
 
-	@Query(value="SELECT sum(pay_money) FROM commonuser where DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday", nativeQuery = true)
+	@Query(value="SELECT sum(pay_money) FROM commonuser where DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday ORDER BY pay_date desc", nativeQuery = true)
 	public Object payDate(String startday ,String endday);
 
 //	@Query(value="SELECT sum(pay_money) FROM commonuser where DATE_FORMAT(Pay_Date,'%Y%m%d') = (DATE_FORMAT(now(),'%Y%m%d'))", nativeQuery = true)
@@ -21,4 +21,10 @@ public interface CommmonUserDao  extends JpaRepository<CommonUser, Long>, JpaSpe
 	
 	@Query(value="SELECT * from commonuser where DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday ORDER BY pay_date desc", nativeQuery = true)
 	public List<CommonUser> findAll(String startday ,String endday);
+
+	@Query(value = "select * from commonuser where (leader_Person=:peploeName or assgin_person=:peploeName) and DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday ORDER BY pay_date desc", nativeQuery = true)
+	public List<CommonUser> findByPeploeName(String peploeName,  String startday ,String endday);
+
+	@Query(value = "select * from commonuser where cost_type=:type and DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday ORDER BY pay_date desc", nativeQuery = true)
+	public List<CommonUser> findByType(String type, String startday, String endday);
 }

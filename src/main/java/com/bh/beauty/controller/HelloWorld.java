@@ -24,7 +24,6 @@ public class HelloWorld {
 		m.setRemarks("正常充值");
 		m.setMemberId(2);
 		m.setMemberType("美发");
-		m.setMemberNumber(23);
 		m.setCreateDate(new Timestamp(System.currentTimeMillis()));
 		return userDao.save(m) + "123";
 	}

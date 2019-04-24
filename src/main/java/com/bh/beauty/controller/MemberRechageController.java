@@ -53,7 +53,7 @@ public class MemberRechageController {
 		MemberUser memberUser = memberUserDao.findByMemberIdAndMemberType(memberRechage.getMemberId(), memberRechage.getMemberType());
 
 		memberUser.setPhoneNumber(memberRechage.getPhoneNumber());
-		memberUser.setMemberNumber(memberUser.getMemberNumber() + memberRechage.getMemberNumber());
+		memberUser.setMemberMeony(memberUser.getMemberMeony() + memberRechage.getMemberMeony());
 		
 //		MemberRechage memberRechage = new MemberRechage();
 //		memberRechage.setMemberMeony(memberUser.getMemberMeony());

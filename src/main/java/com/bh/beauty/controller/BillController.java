@@ -1,6 +1,7 @@
 package com.bh.beauty.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bh.beauty.dao.CommmonUserDao;
 import com.bh.beauty.dao.MemberRechageDao;
+import com.bh.beauty.entity.MemberRechage;
 import com.bh.beauty.util.TimeUtil;
 
 @RestController
@@ -27,6 +29,11 @@ public class BillController {
 	
 	@Autowired
 	com.bh.beauty.dao.UserDao UserDao;
+	
+	@RequestMapping("/findCostMerber")
+	public List<MemberRechage> findCostMerber(@RequestParam int memberId,@RequestParam String memberType ) {
+		return memberRechageDao.findByMemberIdAndMemberType(memberId, memberType);
+	}
 	
 	@RequestMapping("/findbill")
 	public Object findCommoonUserBill(@RequestParam(required = false) Map<String, String> map) {

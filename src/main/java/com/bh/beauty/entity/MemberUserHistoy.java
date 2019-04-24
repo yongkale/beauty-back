@@ -1,6 +1,5 @@
 package com.bh.beauty.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,13 +13,23 @@ import java.sql.Timestamp;
  */
 
 @Entity //告诉JPA这是一个实体类（和数据表映射的类）
-@Table(name="memberuser")
-public class MemberUser {
+@Table(name="memberuserhistoy")
+public class MemberUserHistoy {
 
 	@Id  
 	@GeneratedValue 
 	private int id;
 	
+	private int idRef;
+	
+	
+	
+	public int getIdRef() {
+		return idRef;
+	}
+	public void setIdRef(int idRef) {
+		this.idRef = idRef;
+	}
 	private String repsoenPerson;
 	
 	private int memberId;

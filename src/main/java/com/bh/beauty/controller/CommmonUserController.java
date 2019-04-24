@@ -26,9 +26,21 @@ public class CommmonUserController {
 
 	@Autowired
 	private CommmonUserDao commmonUserDao;
-	
+
 	@Autowired
 	private CommomUserHistoryDao commomUserHistoryDao;
+	
+	@GetMapping("/findByType")
+	public List<CommonUser> findByType(@RequestParam String type, @RequestParam(required = false) Map<String, String> map) {
+		TimeUtil.setStartTimeAndEndTime(map);
+		return commmonUserDao.findByType(type, map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
+	}
+	
+	@GetMapping("/peploeName")
+	public List<CommonUser> findByPeploeName(@RequestParam String peploeName, @RequestParam(required = false) Map<String, String> map) {
+		TimeUtil.setStartTimeAndEndTime(map);
+		return commmonUserDao.findByPeploeName(peploeName, map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
+	}
 	
 	@PostMapping("/save")
 	public CommonUser save(@ RequestBody CommonUser commmonUser, @RequestParam String type) {
