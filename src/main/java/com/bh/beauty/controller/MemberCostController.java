@@ -33,6 +33,12 @@ public class MemberCostController {
 	@Autowired
 	private MemberUserDao memberUserDao;
 
+	@GetMapping("/findCountByType")
+	public List<Map<String, Long>> findCountByType (@RequestParam(required = false) Map<String, String> map) {
+		TimeUtil.setStartTimeAndEndTime(map);
+		return memberCostDao.findByType(map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
+	}
+	
 	@GetMapping("/peploeName")
 	public List<MemberCost> findByMemberId(@RequestParam String peploeName, @RequestParam(required = false) Map<String, String> map) {
 		TimeUtil.setStartTimeAndEndTime(map);

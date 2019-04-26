@@ -1,11 +1,9 @@
 package com.bh.beauty.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,11 +25,8 @@ public class BillController {
 	@Autowired
 	private MemberRechageDao memberRechageDao;
 	
-	@Autowired
-	com.bh.beauty.dao.UserDao UserDao;
-	
 	@RequestMapping("/findCostMerber")
-	public List<MemberRechage> findCostMerber(@RequestParam int memberId,@RequestParam String memberType ) {
+	public List<MemberRechage> findCostMerber(@RequestParam int memberId, @RequestParam String memberType ) {
 		return memberRechageDao.findByMemberIdAndMemberType(memberId, memberType);
 	}
 	

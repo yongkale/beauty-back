@@ -38,6 +38,12 @@ public class MemberRechageController {
 	@Autowired
 	private MemberRechageDao memberRechageDao;
 	
+	@GetMapping("/findMoneyByType")
+	public List<Map<String, Long>>  findMoneyByType (@RequestParam(required = false) Map<String, String> map) {
+		TimeUtil.setStartTimeAndEndTime(map);
+		return memberRechageDao.findMoneyByType(map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
+	}
+	
 	@GetMapping("/findAll")
 	public List<MemberRechage> findAllcharge(@RequestParam(required = false) Map<String, String> map) {
 //		 Sort sort = new Sort(Direction.DESC, "Create_date");

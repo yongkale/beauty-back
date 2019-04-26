@@ -28,4 +28,9 @@ public class EmployeeController {
 	public List<Employee> findAll() {
 		return employeeDao.findAll();
 	}
+	
+	@GetMapping("/findAllName")
+	public List<String> findAllName() {
+		return employeeDao.findAllName();
+	}
 }

@@ -19,7 +19,7 @@ public class BeautyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BeautyApplication.class, args);
 	}
-	
+
 	private CorsConfiguration buildConfig() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.addAllowedOrigin("*");

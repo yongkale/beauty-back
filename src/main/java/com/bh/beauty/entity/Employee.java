@@ -17,7 +17,7 @@ public class Employee {
 	@Id  
 	@GeneratedValue 
 	private int id;
-	private int employeeId;
+	private String employeeId;
     private String employeeType;
     private String employeeName;
     private String employeePhone;
@@ -27,10 +27,10 @@ public class Employee {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public String getEmployeeType() {

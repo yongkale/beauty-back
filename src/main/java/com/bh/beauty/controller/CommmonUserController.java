@@ -1,6 +1,5 @@
 package com.bh.beauty.controller;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +26,17 @@ public class CommmonUserController {
 	@Autowired
 	private CommmonUserDao commmonUserDao;
 
-	@Autowired
-	private CommomUserHistoryDao commomUserHistoryDao;
+	@GetMapping("/findMoneyByType")
+	public List<Map<String, Long>>  findMoneyByType (@RequestParam(required = false) Map<String, String> map) {
+		TimeUtil.setStartTimeAndEndTime(map);
+		return commmonUserDao.findMoneyByType(map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
+	}
+	
+	@GetMapping("/findCountByType")
+	public List<Map<String, Long>>  findCountByType (@RequestParam(required = false) Map<String, String> map) {
+		TimeUtil.setStartTimeAndEndTime(map);
+		return commmonUserDao.findByType(map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
+	}
 	
 	@GetMapping("/findByType")
 	public List<CommonUser> findByType(@RequestParam String type, @RequestParam(required = false) Map<String, String> map) {
@@ -44,15 +52,6 @@ public class CommmonUserController {
 	
 	@PostMapping("/save")
 	public CommonUser save(@ RequestBody CommonUser commmonUser, @RequestParam String type) {
-		if ("update".equals(type)) {
-			CommomUserHistory commomUserHistory = new CommomUserHistory();
-			commomUserHistory.setCommonId(commmonUser.getCommonId());
-			commomUserHistory.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-			commomUserHistory.setRemainMoney(commmonUser.getPayMoney());
-			commomUserHistoryDao.save(commomUserHistory);
-		} else {
-			commmonUser.setPayDate(new Timestamp(System.currentTimeMillis()));
-		}
 		return commmonUserDao.save(commmonUser);
 	}
 	
