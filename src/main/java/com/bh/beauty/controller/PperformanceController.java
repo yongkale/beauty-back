@@ -1,6 +1,6 @@
 package com.bh.beauty.controller;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +42,9 @@ public class PperformanceController {
 		for (int i = 0; i < names.size(); i++) {
 			CountBillVo vo = new CountBillVo();
 			vo.setProduct(names.get(i));
-			List<Map<String, BigInteger>> findCountPeopleByType = memberCostDao.findCountPeopleByType(names.get(i), map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
+			List<Map<String, BigDecimal>> findCountPeopleByType = memberCostDao.findCountPeopleByType(names.get(i), map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
 
-			for(Map<String, BigInteger> m : findCountPeopleByType) {
+			for(Map<String, BigDecimal> m : findCountPeopleByType) {
 				if("美容".equals(m.get("type"))) {
 					vo.setBeauty(m.get("count"));
 				}
@@ -75,9 +75,9 @@ public class PperformanceController {
 		for (int i = 0; i < names.size(); i++) {
 			CountBillVo vo = new CountBillVo();
 			vo.setProduct(names.get(i));
-			List<Map<String, BigInteger>> findCountPeopleByType = commmonUserDao.findCountPeopleByType(names.get(i), map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
+			List<Map<String, BigDecimal>> findCountPeopleByType = commmonUserDao.findCountPeopleByType(names.get(i), map.get(Constant.START_DAY) , map.get(Constant.END_DAY));
 
-			for(Map<String, BigInteger> m : findCountPeopleByType) {
+			for(Map<String, BigDecimal> m : findCountPeopleByType) {
 				if("美容".equals(m.get("type"))) {
 					vo.setBeauty(m.get("count"));
 				}

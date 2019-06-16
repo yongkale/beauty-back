@@ -1,8 +1,7 @@
 package com.bh.beauty.dao;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +10,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import com.bh.beauty.entity.CommonUser;
-import com.bh.beauty.entity.MemberRechage;
-import com.bh.beauty.vo.CountBillTypeCountVo;
 
 public interface CommmonUserDao  extends JpaRepository<CommonUser, Long>, JpaSpecificationExecutor<CommonUser>,Serializable {
 
@@ -31,11 +28,11 @@ public interface CommmonUserDao  extends JpaRepository<CommonUser, Long>, JpaSpe
 	@Query(value = "select * from commonuser where cost_type=:type and DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday ORDER BY pay_date desc", nativeQuery = true)
 	public List<CommonUser> findByType(String type, String startday, String endday);
 
-	@Query(value = "select cost_type,count(*) as count from commonuser where DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday  group by cost_type", nativeQuery = true)
+	@Query(value = "select cost_type,sum(pay_money) as count from commonuser where DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday  group by cost_type", nativeQuery = true)
 	public List<Map<String, Long>>  findByType(String startday, String endday);
 
-	@Query(value = "select cost_type as type,count(*) as count from commonuser where (leader_Person=:peploeName or assgin_person=:peploeName) and DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday group by cost_type", nativeQuery = true)
-	public List<Map<String, BigInteger>> findCountPeopleByType(String peploeName, String startday ,String endday);
+	@Query(value = "select cost_type as type,sum(pay_money) as count from commonuser where (leader_Person=:peploeName or assgin_person=:peploeName) and DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday group by cost_type", nativeQuery = true)
+	public List<Map<String, BigDecimal>> findCountPeopleByType(String peploeName, String startday ,String endday);
 
 	@Query(value = "select cost_type,sum(pay_money) as count from commonuser where DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday  group by cost_type", nativeQuery = true)
 	public List<Map<String, Long>> findMoneyByType(String startday ,String endday);

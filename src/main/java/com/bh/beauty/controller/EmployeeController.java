@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bh.beauty.dao.EmployeeDao;
@@ -32,5 +33,13 @@ public class EmployeeController {
 	@GetMapping("/findAllName")
 	public List<String> findAllName() {
 		return employeeDao.findAllName();
+	}
+	
+	@GetMapping("/delete")
+	public List<Employee> delete(@RequestParam String id) {
+//		Employee employee = new Employee();
+//		employee.setEmployeeId(id);
+//		employeeDao.delete(employeeDao.findById(id));
+		return employeeDao.findAll();
 	}
 }

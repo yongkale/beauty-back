@@ -1,34 +1,34 @@
 package com.bh.beauty.vo;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 public class CountBillVo {
 	private String product;
-	private BigInteger hair;
-	private BigInteger nails;
-	private BigInteger beauty;
+	private BigDecimal hair;
+	private BigDecimal nails;
+	private BigDecimal beauty;
 	public String getProduct() {
 		return product;
 	}
 	public void setProduct(String product) {
 		this.product = product;
 	}
-	public BigInteger getHair() {
+	public BigDecimal getHair() {
 		return hair;
 	}
-	public void setHair(BigInteger hair) {
+	public void setHair(BigDecimal hair) {
 		this.hair = hair;
 	}
-	public BigInteger getNails() {
+	public BigDecimal getNails() {
 		return nails;
 	}
-	public void setNails(BigInteger nails) {
+	public void setNails(BigDecimal nails) {
 		this.nails = nails;
 	}
-	public BigInteger getBeauty() {
+	public BigDecimal getBeauty() {
 		return beauty;
 	}
-	public void setBeauty(BigInteger beauty) {
+	public void setBeauty(BigDecimal beauty) {
 		this.beauty = beauty;
 	}
 }

@@ -1,5 +1,6 @@
 package com.bh.beauty.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bh.beauty.common.Constant;
 import com.bh.beauty.dao.CommmonUserDao;
-import com.bh.beauty.dao.CommomUserHistoryDao;
-import com.bh.beauty.entity.CommomUserHistory;
 import com.bh.beauty.entity.CommonUser;
 import com.bh.beauty.util.TimeUtil;
 
@@ -52,6 +51,7 @@ public class CommmonUserController {
 	
 	@PostMapping("/save")
 	public CommonUser save(@ RequestBody CommonUser commmonUser, @RequestParam String type) {
+		commmonUser.setPayDate(new Timestamp(System.currentTimeMillis()));
 		return commmonUserDao.save(commmonUser);
 	}
 	

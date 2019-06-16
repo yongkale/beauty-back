@@ -23,8 +23,12 @@ public interface MemberUserDao extends JpaRepository<MemberUser, Long>, JpaSpeci
 	 * "INSERT INTO memberuser VALUES ('张三', '178092100000', '2019-04-18 19:24:37', '1000', '正常充值', null, '1', '美发', '10')"
 	 * , nativeQuery = true) int insert();
 	 */
-	@Query(value="select * from memberuser where Member_ID like :searchKey", nativeQuery = true)
-	public List<MemberUser> search(String searchKey);
+	@Query(value="select * from memberuser where name like :searchKey or phone_number like :searchKey order by create_date desc LIMIT :pageNo, :pageSize", nativeQuery = true)
+	public List<MemberUser> search(String searchKey, int pageNo, int pageSize);
+	
+	@Query(value="select count(*) from memberuser where name like :searchKey or phone_number like :searchKey", nativeQuery = true)
+	public long searchCount(String searchKey);
+	
 	
 	@Query(value="select * from memberuser order by create_date desc", nativeQuery = true)
 	public List<MemberUser> findAll ();

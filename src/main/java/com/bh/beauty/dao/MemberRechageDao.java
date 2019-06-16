@@ -19,7 +19,7 @@ public interface MemberRechageDao extends JpaRepository<MemberRechage, Long>, Jp
 	@Query(value="SELECT * from memberrecharge where DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday ORDER BY pay_date desc", nativeQuery = true)
 	public List<MemberRechage> findAll(String startday ,String endday);
 
-	public List<MemberRechage> findByMemberIdAndMemberType(int memberId, String memberType);
+	public List<MemberRechage> findByMemberId(int memberId);
 	
 	
 	@Query(value = "select member_type,sum(member_meony) as count from memberrecharge where DATE_FORMAT(Pay_Date,'%Y%m%d') BETWEEN :startday and :endday  group by member_type", nativeQuery = true)

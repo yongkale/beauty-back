@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ import com.bh.beauty.dao.MemberUserHistoyDao;
 import com.bh.beauty.entity.MemberRechage;
 import com.bh.beauty.entity.MemberUser;
 import com.bh.beauty.entity.MemberUserHistoy;
+import com.bh.beauty.util.Pagination;
 
 @RestController
 @RequestMapping("/api/member")
@@ -43,8 +45,8 @@ public class MemberController {
 	}
 	
 	@GetMapping("/findMemberUserBytypeAndId")
-	public MemberUser findMemberUserBytypeAndId(@RequestParam int memberId, @RequestParam String memberType) {
-		return userDao.findByMemberIdAndMemberType(memberId, memberType);
+	public MemberUser findMemberUserBytypeAndId(@RequestParam int memberId) {
+		return userDao.findByMemberId(memberId);
 	}
 	
 //	@PostMapping("/rechage")
@@ -74,16 +76,36 @@ public class MemberController {
 	}
 	
 	@PostMapping("/save")
-	@Transactional
+	@Transactional(value = TxType.NOT_SUPPORTED)
 	public MemberUser save(@RequestBody MemberUser memberUser) {
 		
-		MemberUser memberUserFromDB = userDao.findByMemberIdAndMemberType(memberUser.getMemberId(), memberUser.getMemberType());
-		
+		MemberUser memberUserFromDB = null;
+		boolean isCreate = false;
 		if (null == memberUser.getCreateDate()) {
+			isCreate = true;
 			memberUser.setCreateDate(new Timestamp(System.currentTimeMillis()));
-			return userDao.save(memberUser);
+			long count = userDao.count();
+			memberUser.setMemberId((int)++count);
+			memberUserFromDB =  userDao.save(memberUser);
+			
+			//充值记录
+			MemberRechage memberRechage = new MemberRechage();
+			
+			memberRechage.setPhoneNumber(memberUserFromDB.getPhoneNumber());
+			memberRechage.setName(memberUserFromDB.getName());
+			memberRechage.setId(memberUserFromDB.getMemberId());
+			memberRechage.setMemberMeony(memberUserFromDB.getMemberMeony());
+			memberRechage.setRemarks(memberUserFromDB.getRemarks());
+			memberRechage.setRepsoenPerson(memberUserFromDB.getRepsoenPerson());
+			memberRechage.setPayDate(memberUser.getCreateDate());
+			memberRechageDao.save(memberRechage);
 		}
 		
+		if (null == memberUserFromDB) {
+			memberUserFromDB = userDao.findByMemberId(memberUser.getMemberId());
+		}
+		
+		//修改记录
 		MemberUserHistoy memberUserHistoy = new MemberUserHistoy();
 		memberUserHistoy.setCreateDate(new Timestamp(System.currentTimeMillis()));
 		memberUserHistoy.setMemberId(memberUser.getMemberId());
@@ -97,14 +119,18 @@ public class MemberController {
 		
 		memberUserHistoyDao.save(memberUserHistoy);
 		
-		
-		memberUserFromDB.setCreateDate(new Timestamp(System.currentTimeMillis()));
-		memberUserFromDB.setMemberId(memberUser.getMemberId());
-		memberUserFromDB.setMemberMeony(memberUser.getMemberMeony());
+		if (!isCreate) {
+			//memberUserFromDB.setCreateDate(new Timestamp(System.currentTimeMillis()));
+			memberUserFromDB.setMemberId(memberUser.getMemberId());
+			memberUserFromDB.setMemberMeony(memberUser.getMemberMeony());
 //		memberUserHistoy.setMemberType(memberType);
-		memberUserFromDB.setName(memberUser.getName());
-		memberUserFromDB.setPhoneNumber(memberUser.getPhoneNumber());
-		return userDao.save(memberUserFromDB);
+			memberUserFromDB.setName(memberUser.getName());
+			memberUserFromDB.setPhoneNumber(memberUser.getPhoneNumber());
+			
+			return userDao.save(memberUserFromDB);
+		}
+		
+		return memberUserFromDB;
 	}
 
 	@GetMapping("/findByPhone")
@@ -126,8 +152,12 @@ public class MemberController {
 	}
 	
 	@GetMapping("/search")
-	public List<MemberUser> search(@RequestParam String searchKey) {
-		return userDao.search("%"+ searchKey +"%");
+	public Pagination search(@RequestParam String searchKey, Pagination pagination) {
+		 List<MemberUser> memberUsers = userDao.search("%"+ searchKey +"%", (pagination.getPageNo()-1) * pagination.getPageSize(), pagination.getPageSize());
+		 pagination.setRecords(memberUsers);
+		 long count  = userDao.searchCount("%"+ searchKey +"%");
+		 pagination.setTotalRecord((int)count);
+		 return pagination;
 	}
 	
 }

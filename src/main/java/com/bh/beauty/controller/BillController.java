@@ -26,8 +26,8 @@ public class BillController {
 	private MemberRechageDao memberRechageDao;
 	
 	@RequestMapping("/findCostMerber")
-	public List<MemberRechage> findCostMerber(@RequestParam int memberId, @RequestParam String memberType ) {
-		return memberRechageDao.findByMemberIdAndMemberType(memberId, memberType);
+	public List<MemberRechage> findCostMerber(@RequestParam int memberId) {
+		return memberRechageDao.findByMemberId(memberId);
 	}
 	
 	@RequestMapping("/findbill")

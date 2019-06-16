@@ -43,7 +43,19 @@
 		    <artifactId>fastjson</artifactId>
 		    <version>1.2.57</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.binarywang</groupId>
+			<artifactId>weixin-java-mp</artifactId>
+			<version>2.9.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

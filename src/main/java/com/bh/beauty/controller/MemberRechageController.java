@@ -56,7 +56,7 @@ public class MemberRechageController {
 	@Transactional
 	public MemberRechage save(@RequestBody MemberRechage memberRechage) {
 		
-		MemberUser memberUser = memberUserDao.findByMemberIdAndMemberType(memberRechage.getMemberId(), memberRechage.getMemberType());
+		MemberUser memberUser = memberUserDao.findByMemberId(memberRechage.getMemberId());
 
 		memberUser.setPhoneNumber(memberRechage.getPhoneNumber());
 		memberUser.setMemberMeony(memberUser.getMemberMeony() + memberRechage.getMemberMeony());

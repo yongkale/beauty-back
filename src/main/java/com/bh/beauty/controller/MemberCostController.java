@@ -21,6 +21,7 @@ import com.bh.beauty.dao.MemberUserDao;
 import com.bh.beauty.entity.MemberCost;
 import com.bh.beauty.entity.MemberUser;
 import com.bh.beauty.util.TimeUtil;
+import com.wechat.service.WeChatService;
 
 
 @RestController
@@ -32,6 +33,9 @@ public class MemberCostController {
 
 	@Autowired
 	private MemberUserDao memberUserDao;
+	
+//	@Autowired
+//	private WeChatService weChatService;
 
 	@GetMapping("/findCountByType")
 	public List<Map<String, Long>> findCountByType (@RequestParam(required = false) Map<String, String> map) {
@@ -52,8 +56,8 @@ public class MemberCostController {
 	}
 	
 	@GetMapping("/findByMemberIdAndMemberType")
-	public List<MemberCost> findMemberCost(@RequestParam int memberId, @RequestParam String memberType) {
-		return memberCostDao.findByMemberIdAndMemberType(memberId, memberType);
+	public List<MemberCost> findMemberCost(@RequestParam int memberId) {
+		return memberCostDao.findByMemberId(memberId);
 	}
 	
 	@PostMapping("/save")
@@ -72,6 +76,9 @@ public class MemberCostController {
 			return result;
 		}
 
+//		//改进, 使用Redis缓存
+//		weChatService.notifyUserCustomerCount(memberUser.getWeChatNumber(), memberCost.getCostMoney(), "cost");
+//		
 		memberUser.setMemberMeony(leftMoney);
 		memberUserDao.save(memberUser);
 		

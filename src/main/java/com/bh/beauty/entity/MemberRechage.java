@@ -31,7 +31,6 @@ public class MemberRechage {
     private String phoneNumber;
     private int memberMeony;
     private Timestamp payDate;
-    private String memberType ;
     private String remarks;
     private String repsoenPerson ;
 	public int getId() {
@@ -66,12 +65,6 @@ public class MemberRechage {
 	}
 	public void setPayDate(Timestamp payDate) {
 		this.payDate = payDate;
-	}
-	public String getMemberType() {
-		return memberType;
-	}
-	public void setMemberType(String memberType) {
-		this.memberType = memberType;
 	}
 	public String getRemarks() {
 		return remarks;
